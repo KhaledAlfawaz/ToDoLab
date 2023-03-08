@@ -1,6 +1,6 @@
 import { TypeOf, z } from 'zod';
 
-const userObj = z.object({
+const taskObj = z.object({
   id: z.string({
     required_error: 'id is required',
     invalid_type_error: 'id must be string',
@@ -21,21 +21,21 @@ const userObj = z.object({
 });
 
 export const createTaskType = z.object({
-  body: userObj.omit({ id: true,}),
+  body: taskObj.pick({ title:true}),
 });
 
 export const getTasksForOneUserType = z.object({
-    body: userObj.pick({ userId: true,}),
+    body: taskObj.pick({ userId: true,}),
   });
   
 
   export const updateTaskType = z.object({
-    body: userObj.omit({ }),
+    body: taskObj.omit({ userId:true}),
   });
   
 
   export const deleteTaskType = z.object({
-    body: userObj.pick({id:true , userId:true }),
+    body: taskObj.pick({id:true}),
   });
 
 export type createTaskTypeSchema = TypeOf<typeof createTaskType>['body'];

@@ -21,7 +21,13 @@ const userObj = z.object({
 });
 
 export const createUserType = z.object({
-  body: userObj.omit({ id: true,}),
+  body: userObj.omit({ id: true}),
+});
+
+export const loginType = z.object({
+  body: userObj.pick({ email:true , password:true}),
 });
 
 export type createUserTypeSchema = TypeOf<typeof createUserType>['body'];
+export type loginTypeSchema = TypeOf<typeof loginType>['body'];
+
